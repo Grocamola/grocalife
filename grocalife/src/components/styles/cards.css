@@ -1,0 +1,50 @@
+
+
+/* TASK CARD PAGE */
+.taskCard { 
+    width: 500px;
+    height: 600px;
+    border-radius: 20px;
+    padding: 30px;
+    margin: 2px 5px;
+    box-sizing: border-box;
+
+    background: #ccc;
+    color: black;
+
+    text-align: left;
+}
+.taskCard h1 { 
+    line-height: 3rem;
+    margin-bottom: 20px;
+}
+.taskCard p { 
+    line-height: 2rem;
+}
+.taskCard button { 
+    margin-top: 30px;
+}
+
+
+/* TASK Thumbnail */
+.taskThumbnail { 
+    width: 500px;
+    height: 200px;
+    border-radius: 20px;
+    padding: 30px;
+    margin: 2px 5px;
+    box-sizing: border-box;
+
+    background: #ccc;
+    color: black;
+
+    text-align: left;
+}
+.taskThumbnail h2 { 
+    line-height: 2.5rem;
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+}
+.taskThumbnail button { 
+    margin-top: 15px;
+}

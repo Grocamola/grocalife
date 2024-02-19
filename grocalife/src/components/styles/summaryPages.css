@@ -1,0 +1,33 @@
+
+/* Task Summary Page */
+.taskSummaryPage--content { 
+    width: 90vw;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.taskSummary--content--dashboard { 
+    height: 8rem;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+.taskSummary--content-result { 
+    padding: 2rem;
+    min-height: 8rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: space-evenly;
+}
+
+/* TASK CARD PAGE */
+.taskCardPage { 
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
