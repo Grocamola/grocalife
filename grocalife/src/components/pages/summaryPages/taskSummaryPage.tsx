@@ -13,8 +13,17 @@ const TaskSummaryPage = () => {
                 <button onClick={() => navigate('/task-card/1001')}>ADD NEW TASK</button>
             </div>
             <div className="taskSummary--content-result">
-                <TaskThumbnail />
-                <TaskThumbnail />
+                <h1>Urgents</h1><br /><hr />
+                <div className="taskSummary--content-result-block">
+                    <TaskThumbnail />
+                    <TaskThumbnail />
+                </div>
+                <br /><br />
+                <h2>Upcomming Tasks - This week</h2><br /><hr />
+                <div className="taskSummary--content-result-block">
+                    <TaskThumbnail />
+                    <TaskThumbnail />
+                </div>
             </div>
         </div>
      );

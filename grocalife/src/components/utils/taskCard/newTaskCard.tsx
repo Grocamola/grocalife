@@ -1,67 +1,78 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card } from "../classes/taskClasses";
-import dummyTasks from '../dummy_data/dummy_tasks.json'
+import { Card } from "../_Classes/taskClasses";
+import { Task } from "../_interfaces/TaskInterfaces";
+import { useDateCalculator } from "../_Hooks/date";
+import Tasks from '../dummy_data/dummy_tasks.json'
 
-interface Task {
-    id: number;
-    title: string;
-    description: string;
-    status: string;
-}
 
 const NewTaskCard = () => {
+    
 
+    const {year, month, day} = useDateCalculator()
     const navigate = useNavigate();
-    const [task, setTask] = useState<Task>({ id: 1001, title: '', description: '', status: 'not-started' });
-    const [preview, setPreview] = useState<Task>({ id: 1001, title: '', description: '', status: 'not-started' })
+
+    const newTask : Task = new Card(1001, "", "", 'not-started', [0, 0, 0], [0, 0, 0], [0, 'initial'],[0,''])
+
+    
+    const [formData, setFormData] = useState({title: '', description: ''})
     const [taskEdit, setTaskEdit] = useState<boolean>(true)
-    const [tasks, setTasks] = useState<Task[]>(dummyTasks.tasks);
 
-    const addNewTask = () => {
-        const Task = new Card(task.id, task.title, task.description, 'not-started');
-        const newTaskData = Task.showData;
-        setTasks(prevTasks => [...prevTasks, newTaskData]);
+    const inputChangeHandler = (event: ChangeEvent<HTMLInputElement>) => { 
+        event.preventDefault();
+        const { name, value } = event.target;
+        setFormData(prevState => ({ ...prevState, [name]: value }));
+    }
 
-        setTask({ id: 1001, title: '', description: '', status: 'not-started' })
-    };
-
-    const taskPreviewHandler = () => { 
+    const previewHandler = () => { 
         setTaskEdit(false)
-        setPreview(task);
+        newTask.setTitle(formData.title);
+        newTask.setDescription(formData.description);
+        console.log(newTask.showData())
     }
 
-    const taskEditHandler = () => {
-        setTaskEdit(true)
-        setPreview({ id: 1001, title: '', description: '', status: 'not-started' });
+    const addNewTask =  (e: React.FormEvent) => {
+        e.preventDefault()
+        newTask.startTask([year, month, day])
+        newTask.setTitle(formData.title);
+        newTask.setDescription(formData.description);
+        console.log(newTask.showData())
+        console.log([...Tasks.tasks, newTask.showData()])
+        //sending data to backend
+
+        // setFormData({title: '', description: ''})
+        // setTaskEdit(true)
+        // navigate('/')
     }
 
-    const taskUpdateHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setTask(prevTask => ({ ...prevTask, [name]: value }));
-    };
-
-    useEffect(() => {
-        console.table(task)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [tasks])
 
     return ( 
         <div className="taskCard">
             <h1>Task</h1>
-            {/* <p>Task name: Create Typescript project</p>
-            <p>Description: Build a functional Typescript task manager</p>
-            <p>Time neede: 10 pomodoro</p> */}
-            <input disabled={!taskEdit} name="title" value={task.title} onChange={taskUpdateHandler} /><br />
-            <input disabled={!taskEdit} name="description" value={task.description} onChange={taskUpdateHandler} /><br />
-            {preview.title.length > 0 && <button onClick={taskEditHandler}>Edit</button>}
-            <button onClick={taskPreviewHandler}>Preview</button>
-            <br />
-            {preview.title && <p>{preview.title}</p>}
-            {preview.description && <p>{preview.description}</p>}
-            {preview.title && <>
-                <button onClick={() => addNewTask()}>Save</button>
-                <button onClick={() => navigate('/')}>Back</button></>}
+            <form onSubmit={addNewTask}>
+                <label>Title</label><br />
+                <input disabled={!taskEdit} className={taskEdit ? 'inputActive' : 'inputDeactive'} name="title" value={formData.title} onChange={inputChangeHandler} /><br />
+                <label>Description</label><br />
+                <input disabled={!taskEdit} className={taskEdit ? 'inputActive' : 'inputDeactive'} name="description" value={formData.description} onChange={inputChangeHandler} /><br />
+
+                {!taskEdit && <button onClick={() => setTaskEdit(true)}>Edit</button>}
+                {taskEdit && <button type="button" disabled={formData.title.length === 0} onClick={previewHandler}>Preview</button>}
+                <br /><br />
+                {!taskEdit && <>
+                    <p>Preview:</p><br />
+                        <div className="TaskConfig">
+                            {formData.title.length > 0 && <h3>{formData.title}</h3>}
+                            {formData.description.length > 0 && <p className="TaskConfig--desc">{formData.description}</p>}
+                            <p className="TaskConfig--status">Status: "not started"</p>
+                            <p className="TaskConfig--status">Starting: once you save.</p> 
+                        </div>
+                        
+                    </>
+                }
+                {formData.title && !taskEdit && <>
+                    <button type="submit">Save</button>
+                    <button onClick={() => navigate('/')}>Back</button></>}
+            </form>
         </div>
      );
 }

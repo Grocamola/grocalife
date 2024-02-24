@@ -20,6 +20,12 @@
     min-height: 8rem;
     box-sizing: border-box;
     display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: space-evenly;
+}
+.taskSummary--content-result-block { 
+    display: flex;
     flex-direction: row;
     text-align: center;
     justify-content: space-evenly;
@@ -30,4 +36,8 @@
     display: flex;
     text-align: center;
     justify-content: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%)
 }
