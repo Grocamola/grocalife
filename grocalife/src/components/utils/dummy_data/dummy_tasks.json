@@ -12,7 +12,7 @@
         },
         {
             "id": 1001,
-            "title": "Learn React",
+            "title": "Learn Typescript",
             "description": "Learn Hooks, useState, useEffect",
             "status": "in-progress",
             "createdin": [2022,7,12],
@@ -22,7 +22,7 @@
         },
         {
             "id": 1001,
-            "title": "Learn React",
+            "title": "Learn Nodejs",
             "description": "Learn Hooks, useState, useEffect",
             "status": "in-progress",
             "createdin": [2022,7,12],
