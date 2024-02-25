@@ -38,11 +38,12 @@ const NewTaskCard = () => {
         newTask.setDescription(formData.description);
         console.log(newTask.showData())
         console.log([...Tasks.tasks, newTask.showData()])
-        //sending data to backend
+        
+        // ---------- sending data to backend ---------- 
 
-        // setFormData({title: '', description: ''})
-        // setTaskEdit(true)
-        // navigate('/')
+        setFormData({title: '', description: ''})
+        setTaskEdit(true)
+        navigate('/')
     }
 
 

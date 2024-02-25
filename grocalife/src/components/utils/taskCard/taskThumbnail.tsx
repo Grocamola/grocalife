@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 
 interface TaskThumbnailProps {
     title: string;
@@ -5,11 +6,17 @@ interface TaskThumbnailProps {
 }
 
 const TaskThumbnail: React.FC<TaskThumbnailProps> = ({ title, description }) => {
+
+    const navigate = useNavigate()
+    const goToTaskHandler = () => { 
+        navigate('/task-card/1001')
+    }
+
     return ( 
         <div className="taskThumbnail">
             <h2>{title}</h2>
             <p>{description}</p>
-            <button>SEE MORE</button>
+            <button onClick={goToTaskHandler}>SEE MORE</button>
         </div>
      );
 }
