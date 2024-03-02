@@ -48,7 +48,7 @@ const NewTaskCard = () => {
 
 
     return ( 
-        <div className="taskCard">
+        <div className="taskCard taskCards">
             <h1>Task</h1>
             <form onSubmit={addNewTask}>
                 <label>Title</label><br />

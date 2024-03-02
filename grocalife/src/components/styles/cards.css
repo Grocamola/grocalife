@@ -55,22 +55,48 @@
 /* TASK Thumbnail */
 .taskThumbnail { 
     width: 500px;
-    height: 200px;
+    height: 95px;
     border-radius: 20px;
-    padding: 30px;
-    margin: 2px 5px;
+    padding: 20px;
+    margin: 10px 5px;
     box-sizing: border-box;
 
-    background: #ccc;
-    color: black;
-
     text-align: left;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 .taskThumbnail h2 { 
-    line-height: 2.5rem;
+    line-height: 2rem;
     font-size: 2rem;
     margin-bottom: 12px;
+    color: white;
 }
-.taskThumbnail button { 
-    margin-top: 15px;
+.taskThumbnail p { 
+    color: #ddd;
+}
+.taskThumbnail div button { 
+    margin: 0;
+    margin-top: 25px;
+    background-color: #eee;
+    color: black;
+}
+
+
+
+
+
+
+/* -------------------- MOBILE VIEW -------------------- */
+@media screen and (max-width: 780px) {
+    .taskThumbnail { 
+        width: 300px;
+        height: 230px;
+        flex-direction: column;
+        padding: 25px;
+        margin: 15px auto;
+    }
+    .taskThumbnail h2 { 
+        line-height: 2.5rem;
+    }
 }

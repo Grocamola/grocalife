@@ -13,9 +13,12 @@ const TaskThumbnail: React.FC<TaskThumbnailProps> = ({ title, description }) => 
     }
 
     return ( 
-        <div className="taskThumbnail">
-            <h2>{title}</h2>
-            <p>{description}</p>
+        <div className="taskThumbnail taskCards">
+            <div>
+                <h2>{title}</h2>
+                <p>{description}</p>
+            </div>
+            
             <button onClick={goToTaskHandler}>SEE MORE</button>
         </div>
      );

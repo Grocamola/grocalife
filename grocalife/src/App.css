@@ -11,16 +11,21 @@
   --color__black: #000000;
   --color__background-light: #F5F5F5;
 
+  --color__background-red: #FF595E;
+  --color__background-orange: #FF924C;
+  --color__background-yellow: #FFCA3A;
+  --color__background-green: #8AC926;
+  --color__background-blue: #1982C4;
+  --color__background-purple: #6A4C93;
+
   background-color: var(--color__background-light);
   
 }
 
 
-
 p, h1, h2, h3, h4, h5, h6, hr {
   margin: 0;
   padding: 0;
-  color: var(--color__black);
   line-height: 1em;
 }
 
@@ -34,6 +39,7 @@ button {
 
 hr { 
   width: 95%;
+  margin-top: 5px;
   margin-bottom: 10px;
 }
 
@@ -51,4 +57,15 @@ input {
   background-color: rgb(214, 214, 214);
   color: rgb(100, 100, 100);
   font-weight: 200;
+}
+
+
+.taskCards { 
+  background-color: var(--color__background-purple);
+  color: var(--color__white);
+}
+.taskSummary--content--dashboard button { 
+  background-color: var(--color__background-purple);
+  color: var(--color__white);
+  width: 200px;
 }

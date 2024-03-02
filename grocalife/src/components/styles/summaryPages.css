@@ -1,7 +1,7 @@
 
 /* Task Summary Page */
 .taskSummaryPage--content { 
-    width: 90vw;
+    width: fit-content;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -14,6 +14,12 @@
     height: 8rem;
     padding: 2rem;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.taskSummary--content--dashboard h2 { 
+    line-height: 4rem;
 }
 .taskSummary--content-result { 
     padding: 2rem;
@@ -23,10 +29,12 @@
     flex-direction: column;
     text-align: center;
     justify-content: space-evenly;
+    background-color: white;
+    border-radius: 20px;
 }
 .taskSummary--content-result-block { 
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     text-align: center;
     flex-wrap: wrap;
     justify-content: space-evenly;
@@ -41,4 +49,19 @@
     left: 50%;
     top: 50%;
     transform: translateY(-50%) translateX(-50%)
+}
+
+
+
+
+
+/* -------------------- MOBILE VIEW -------------------- */
+@media screen and (max-width: 780px) { 
+    .taskSummary--content--dashboard { 
+        height: fit-content;
+        flex-direction: column;
+    }
+    .taskSummary--content--dashboard button { 
+        margin: 20px auto 5px;
+    }
 }
