@@ -12,7 +12,7 @@ const NewTaskCard = () => {
     const {year, month, day} = useDateCalculator()
     const navigate = useNavigate();
 
-    const newTask : Task = new Card(1001, "", "", 'not-started', [0, 0, 0], [0, 0, 0], [0, 'initial'],[0,''])
+    const newTask : Task = new Card(1001, "", "", 'not-started', [0, 0, 0], [0, 0, 0])
 
     
     const [formData, setFormData] = useState({title: '', description: ''})
@@ -60,7 +60,7 @@ const NewTaskCard = () => {
                 {taskEdit && <button type="button" disabled={formData.title.length === 0} onClick={previewHandler}>Preview</button>}
                 <br /><br />
                 {!taskEdit && <>
-                    <p>Preview:</p><br />
+                    <p className="taskCard_preview-title">Preview:</p><br />
                         <div className="TaskConfig">
                             {formData.title.length > 0 && <h3>{formData.title}</h3>}
                             {formData.description.length > 0 && <p className="TaskConfig--desc">{formData.description}</p>}

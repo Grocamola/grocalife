@@ -27,8 +27,7 @@ const TaskSummaryPage = () => {
                 <div className="taskSummary--content-result-block">
                     {todaysTasks.map((task, index) => 
                         <TaskThumbnail 
-                            title={task.title} 
-                            description={task.description} 
+                            taskInfo={task} 
                             key={index} 
                         />
                     )}
@@ -39,8 +38,7 @@ const TaskSummaryPage = () => {
                     <div className="taskSummary--content-result-block">
                         {belatedTasks.map((task, index) => 
                             <TaskThumbnail 
-                                title={task.title} 
-                                description={task.description} 
+                                taskInfo={task}
                                 key={index} 
                             />
                         )}

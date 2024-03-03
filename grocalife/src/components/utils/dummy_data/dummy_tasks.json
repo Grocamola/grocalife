@@ -6,9 +6,7 @@
             "description": "Learn Hooks, useState, useEffect",
             "status": "in-progress",
             "createdin": [2022,7,12],
-            "duedate": [2024,3,2],
-            "duration": [0, "initial"],
-            "time-spent": [0, ""]
+            "duedate": [2024,3,2]
         },
         {
             "id": 1001,
@@ -16,9 +14,7 @@
             "description": "Learn Hooks, useState, useEffect",
             "status": "in-progress",
             "createdin": [2022,7,12],
-            "duedate": [2022,1,1],
-            "duration": [0, "initial"],
-            "time-spent": [0, ""]
+            "duedate": [2022,1,1]
         },
         {
             "id": 1001,
@@ -26,9 +22,7 @@
             "description": "Learn Hooks, useState, useEffect",
             "status": "in-progress",
             "createdin": [2022,7,12],
-            "duedate": [2024,3,5],
-            "duration": [0, "initial"],
-            "time-spent": [0, ""]
+            "duedate": [2024,3,5]
         },
         {
             "id": 1001,
@@ -36,9 +30,7 @@
             "description": "Learn Hooks, useState, useEffect",
             "status": "in-progress",
             "createdin": [2022,7,12],
-            "duedate": [2023,1,1],
-            "duration": [0, "initial"],
-            "time-spent": [0, ""]
+            "duedate": [2023,1,1]
         }
     ]
 }
