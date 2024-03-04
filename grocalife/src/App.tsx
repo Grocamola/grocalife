@@ -1,23 +1,21 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import TaskCardPage from "./components/pages/cardPages/taskCardPage";
-import TaskSummaryPage from "./components/pages/summaryPages/taskSummaryPage";
-import NewTaskCard from "./components/utils/taskCard/newTaskCard";
+// import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import './App.css'
+import { TaskCard } from "./components/utils/_Classes/taskClasses";
 
 
 function App() {
 
+  const task1 = new TaskCard({id: 1001, creator: 'user1', createdate: [2024, 1, 1]})
+  task1.getCardData()
+  
   return (
     <>
-      <BrowserRouter>
+      {/* <BrowserRouter>
         <Routes>
-          <Route path="/summary" element={<TaskSummaryPage />} />
-          <Route path="/new-task-card" element={<NewTaskCard />} />
-          <Route path="/task-card/:taskId" element={<TaskCardPage />} />
-          <Route path="/" element={<TaskSummaryPage />} />
+          <Route path="/summary" element={<div></div>} />
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter> */}
     </>
   )
 }

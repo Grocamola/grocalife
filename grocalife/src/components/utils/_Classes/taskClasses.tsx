@@ -1,57 +1,47 @@
-import { Task } from "../_interfaces/TaskInterfaces";
 
-export type StatusTypes= {
-    taskTypes: 'not-started' | 'in-progress' | 'completed' | 'blocked' | 'archived'
-}
-
-export class Card { 
+export type CardType = {
     id: number;
-    title: string;
-    description: string;
-    status: StatusTypes['taskTypes'];
-    createdin: number[];
-    duedate: number[];
-
-    constructor(
-            id: number, 
-            title: string, 
-            description: string, 
-            status: StatusTypes['taskTypes'], 
-            createdin: number[],
-            duedate: number[],
-
-        ) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.status = status;
-        this.createdin = createdin;
-        this.duedate = duedate;
-
-    }
-    
-    showData(): Omit<Task, 'showData' | 'startTask' | 'setTitle' | 'setDescription' | 'setStatus'> { 
-        return {
-           id: this.id,
-           title: this.title,
-           description: this.description,
-           status: this.status,
-           createdin: this.createdin,
-           duedate: this.duedate,
-        };
-   }
-
-    setTitle(newTitle: string) { 
-        this.title = newTitle;
-    }
-    setDescription(newDescription: string) { 
-        this.description = newDescription;
-    }
-    setStatus(newStatus : StatusTypes['taskTypes']) { 
-        this.status = newStatus
-    }
-    startTask(startTime: number[]) { 
-        this.createdin = startTime
-    }
-
+    creator: string;
+    createdate: [number, number, number];
+    cardFeature?: 'task' | 'appointment';
 }
+enum TaskStatus {
+    NotStarted = 'Not Started',
+    InProgress = 'In Progress',
+    Blocked = 'Blocked',
+    Completed = 'Completed',
+    Archived = 'Archived'
+}
+
+export abstract class Card {
+    protected _id: CardType['id'];
+    protected _creator: CardType['creator'];
+    protected _createdate: CardType['createdate'];
+    protected cardFeature : CardType['cardFeature']
+
+    constructor({id, creator, createdate, cardFeature} : CardType) { 
+        this._id = id;
+        this._creator = creator;
+        this._createdate = createdate;
+        this.cardFeature = cardFeature
+    }
+
+    abstract getCardData (): void;
+}
+
+export class TaskCard extends Card {
+    protected status: TaskStatus = TaskStatus.NotStarted;
+    constructor({ id, creator, createdate, cardFeature = 'task' }: CardType) {
+        super({ id, creator, createdate, cardFeature });
+    }
+
+    getCardData() {
+        console.log({
+            id: this._id,
+            creator: this._creator,
+            createdate: this._createdate,
+            cardFeature: this.cardFeature
+        });
+    }
+}
+

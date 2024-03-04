@@ -59,14 +59,3 @@ input {
   color: rgb(100, 100, 100);
   font-weight: 200;
 }
-
-
-.taskCards { 
-  background-color: var(--color__background-purple);
-  color: var(--color__white);
-}
-.taskSummary--content--dashboard button { 
-  background-color: var(--color__background-purple);
-  color: var(--color__white);
-  width: 200px;
-}
