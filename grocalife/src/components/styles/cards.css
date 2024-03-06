@@ -1,0 +1,8 @@
+.newTaskFormBox { 
+    background: var(--color__background-purple);
+    width: 400px;
+    padding: 30px 20px;
+    border-radius: 20px;
+    margin: 30px auto;
+    color: black;
+}

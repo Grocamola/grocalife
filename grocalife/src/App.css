@@ -44,7 +44,7 @@ hr {
   margin-bottom: 10px;
 }
 
-input { 
+input, textarea { 
   height: 2rem;
   margin: 4px 0;
   padding: 2px 12px;
@@ -53,7 +53,17 @@ input {
   background-color: var(--color__background-light);
   color: var(--color__black);
   font-size: 1.1rem;
+  width: 200px; 
 }
+input[type="date"] {
+  padding-right: 20px; /* Adjust the padding based on your needs */
+  background-image: url('./assets/icons/calendar-lines-pen.png');
+  background-size: 16px 16px; /* Set the size of your icon */
+  background-position: right center;
+  background-repeat: no-repeat;
+}
+
+
 .inputDeactive { 
   background-color: rgb(214, 214, 214);
   color: rgb(100, 100, 100);

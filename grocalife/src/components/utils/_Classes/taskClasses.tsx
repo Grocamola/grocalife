@@ -13,6 +13,7 @@ enum TaskStatus {
     Archived = 'Archived'
 }
 
+
 export abstract class Card {
     protected _id: CardType['id'];
     protected _creator: CardType['creator'];
@@ -26,13 +27,20 @@ export abstract class Card {
         this.cardFeature = cardFeature
     }
 
-    abstract getCardData (): void;
+    abstract getCardData (): CardType;
 }
+
 
 export class TaskCard extends Card {
     protected status: TaskStatus = TaskStatus.NotStarted;
-    constructor({ id, creator, createdate, cardFeature = 'task' }: CardType) {
+    title: string;
+    description: string;
+
+    constructor({ id, creator, createdate, cardFeature = 'task', title, description }: CardType & {title: string, description: string}) {
         super({ id, creator, createdate, cardFeature });
+
+        this.title = title;
+        this.description = description;
     }
 
     getCardData() {
@@ -40,8 +48,21 @@ export class TaskCard extends Card {
             id: this._id,
             creator: this._creator,
             createdate: this._createdate,
-            cardFeature: this.cardFeature
-        });
+            cardFeature: this.cardFeature,
+            status: this.status,
+            title: this.title,
+            description: this.description
+        })
+        return {
+            id: this._id,
+            creator: this._creator,
+            createdate: this._createdate,
+            cardFeature: this.cardFeature,
+            status: this.status,
+            title: this.title,
+            description: this.description
+        };
+        
     }
 }
 
