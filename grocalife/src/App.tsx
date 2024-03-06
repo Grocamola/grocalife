@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import TaskCardPage from "./components/pages/cardPages/taskCardPage";
 import TaskSummaryPage from "./components/pages/summaryPages/taskSummaryPage";
+import { TaskCard } from "./components/utils/_Classes/taskClasses";
 import NewTaskCard from "./components/utils/taskCard/newTaskCard";
 
 import './App.css'
@@ -8,13 +8,14 @@ import './App.css'
 
 function App() {
 
+  const task1 = new TaskCard({id: 1001, creator: 'user1', createdate: [2024, 1, 2]})
+  task1.getCardData()
+  
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/summary" element={<TaskSummaryPage />} />
-          <Route path="/new-task-card" element={<NewTaskCard />} />
-          <Route path="/task-card/:taskId" element={<TaskCardPage />} />
+        <Route path="/create-new-task" element={<NewTaskCard />} />
           <Route path="/" element={<TaskSummaryPage />} />
         </Routes>
       </BrowserRouter>

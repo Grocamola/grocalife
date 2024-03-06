@@ -1,80 +1,96 @@
-import { ChangeEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Card } from "../_Classes/taskClasses";
-import { Task } from "../_interfaces/TaskInterfaces";
-import { useDateCalculator } from "../_Hooks/date";
-import Tasks from '../dummy_data/dummy_tasks.json'
+import { useState } from "react";
+import { TaskCard } from "../_Classes/taskClasses";
 
+import '../../styles/cards.css'
+
+
+type FormData = {
+    title: string;
+    description: string;
+    startDate: [number, number, number];
+  };
 
 const NewTaskCard = () => {
-    
 
-    const {year, month, day} = useDateCalculator()
-    const navigate = useNavigate();
 
-    const newTask : Task = new Card(1001, "", "", 'not-started', [0, 0, 0], [0, 0, 0])
 
-    
-    const [formData, setFormData] = useState({title: '', description: ''})
-    const [taskEdit, setTaskEdit] = useState<boolean>(true)
+    const [formData, setFormData] = useState<FormData>({
+        title: '',
+        description: '',
+        startDate: [0, 0, 0],
+    });
 
-    const inputChangeHandler = (event: ChangeEvent<HTMLInputElement>) => { 
-        event.preventDefault();
-        const { name, value } = event.target;
-        setFormData(prevState => ({ ...prevState, [name]: value }));
-    }
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        const [yearInput, monthInput, dayInput] = value.split('-').map(Number);
 
-    const previewHandler = () => { 
-        setTaskEdit(false)
-        newTask.setTitle(formData.title);
-        newTask.setDescription(formData.description);
-        console.log(newTask.showData())
-    }
 
-    const addNewTask =  (e: React.FormEvent) => {
-        e.preventDefault()
-        newTask.startTask([year, month, day])
-        newTask.setTitle(formData.title);
-        newTask.setDescription(formData.description);
-        console.log(newTask.showData())
-        console.log([...Tasks.tasks, newTask.showData()])
+        if(name === 'startDate') { 
+            setFormData((prevData) => ({
+                ...prevData,
+                [name]: [yearInput, monthInput, dayInput],
+              }));
+        } else {
+           setFormData((prevData) => ({
+          ...prevData,
+          [name]: value,
+        })); 
+        }
         
-        // ---------- sending data to backend ---------- 
+    };
 
-        setFormData({title: '', description: ''})
-        setTaskEdit(true)
-        navigate('/')
-    }
-
-
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        
+        // Handle form submission, you can access form data in formData object
+        const task1 = new TaskCard({
+            id: 1001, 
+            creator: 'user1', 
+            createdate: formData.startDate, 
+            title: formData.title, 
+            description: formData.description
+        })
+        const data = task1.getCardData()
+        console.log(data)
+      };
+      
     return ( 
-        <div className="taskCard taskCards">
-            <h1>Task</h1>
-            <form onSubmit={addNewTask}>
-                <label>Title</label><br />
-                <input disabled={!taskEdit} className={taskEdit ? 'inputActive' : 'inputDeactive'} name="title" value={formData.title} onChange={inputChangeHandler} /><br />
-                <label>Description</label><br />
-                <input disabled={!taskEdit} className={taskEdit ? 'inputActive' : 'inputDeactive'} name="description" value={formData.description} onChange={inputChangeHandler} /><br />
-
-                {!taskEdit && <button onClick={() => setTaskEdit(true)}>Edit</button>}
-                {taskEdit && <button type="button" disabled={formData.title.length === 0} onClick={previewHandler}>Preview</button>}
-                <br /><br />
-                {!taskEdit && <>
-                    <p className="taskCard_preview-title">Preview:</p><br />
-                        <div className="TaskConfig">
-                            {formData.title.length > 0 && <h3>{formData.title}</h3>}
-                            {formData.description.length > 0 && <p className="TaskConfig--desc">{formData.description}</p>}
-                            <p className="TaskConfig--status">Status: "not started"</p>
-                            <p className="TaskConfig--status">Starting: once you save.</p> 
-                        </div>
-                        
-                    </>
-                }
-                {formData.title && !taskEdit && <>
-                    <button type="submit">Save</button>
-                    <button onClick={() => navigate('/')}>Back</button></>}
-            </form>
-        </div>
+        <>
+            <div className="newTaskFormBox">
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <label htmlFor="title">Title:</label>
+                        <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        value={formData.title}
+                        onChange={handleChange}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="description">Description:</label>
+                        <textarea
+                        id="description"
+                        name="description"
+                        value={formData.description}
+                        onChange={handleChange}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="startDate">Starting Date:</label>
+                        <input
+                        type="date"
+                        id="startDate"
+                        name="startDate"
+                        value={formData.startDate[0] === 0 ? '' : `${formData.startDate[0]}-${formData.startDate[1].toString().padStart(2, '0')}-${formData.startDate[2].toString().padStart(2, '0')}`}
+                        onChange={handleChange}
+                        />
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </>
      );
 }
  

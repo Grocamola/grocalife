@@ -1,65 +1,68 @@
-import { Task } from "../_interfaces/TaskInterfaces";
 
-export type StatusTypes= {
-    taskTypes: 'not-started' | 'in-progress' | 'completed' | 'blocked' | 'archived'
+export type CardType = {
+    id: number;
+    creator: string;
+    createdate: [number, number, number];
+    cardFeature?: 'task' | 'appointment';
+}
+enum TaskStatus {
+    NotStarted = 'Not Started',
+    InProgress = 'In Progress',
+    Blocked = 'Blocked',
+    Completed = 'Completed',
+    Archived = 'Archived'
 }
 
-export class Card { 
-    id: number;
+
+export abstract class Card {
+    protected _id: CardType['id'];
+    protected _creator: CardType['creator'];
+    protected _createdate: CardType['createdate'];
+    protected cardFeature : CardType['cardFeature']
+
+    constructor({id, creator, createdate, cardFeature} : CardType) { 
+        this._id = id;
+        this._creator = creator;
+        this._createdate = createdate;
+        this.cardFeature = cardFeature
+    }
+
+    abstract getCardData (): CardType;
+}
+
+
+export class TaskCard extends Card {
+    protected status: TaskStatus = TaskStatus.NotStarted;
     title: string;
     description: string;
-    status: StatusTypes['taskTypes'];
-    createdin: number[];
-    duedate: number[];
 
-    constructor(
-            id: number, 
-            title: string, 
-            description: string, 
-            status: StatusTypes['taskTypes'], 
-            createdin: number[],
-            duedate: number[],
+    constructor({ id, creator, createdate, cardFeature = 'task', title, description }: CardType & {title: string, description: string}) {
+        super({ id, creator, createdate, cardFeature });
 
-        ) {
-        this.id = id;
         this.title = title;
         this.description = description;
-        this.status = status;
-        this.createdin = createdin;
-        this.duedate = duedate;
-
     }
-    
-    showData(): Omit<Task, 'showData' | 'startTask' | 'setTitle' | 'setDescription' | 'setStatus'> { 
+
+    getCardData() {
+        console.log({
+            id: this._id,
+            creator: this._creator,
+            createdate: this._createdate,
+            cardFeature: this.cardFeature,
+            status: this.status,
+            title: this.title,
+            description: this.description
+        })
         return {
-           id: this.id,
-           title: this.title,
-           description: this.description,
-           status: this.status,
-           createdin: this.createdin,
-           duedate: this.duedate,
+            id: this._id,
+            creator: this._creator,
+            createdate: this._createdate,
+            cardFeature: this.cardFeature,
+            status: this.status,
+            title: this.title,
+            description: this.description
         };
-   }
-
-    setTitle(newTitle: string) { 
-        this.title = newTitle;
+        
     }
-    setDescription(newDescription: string) { 
-        this.description = newDescription;
-    }
-    setStatus(newStatus : StatusTypes['taskTypes']) { 
-        this.status = newStatus
-    }
-    startTask(startTime: number[]) { 
-        this.createdin = startTime
-    }
-
 }
 
-
-
-// -------------------- Robin's Notes --------------------
-//interface person { ...., sayHi?: () => void}
-// const persons: Person[] = [ ... { ... , sayHi: () => console.log('Hi')}]
-//person[0].sayHi?.();
-// means if this methos is there, fire it.

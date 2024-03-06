@@ -1,5 +1,3 @@
-
-
 export const useDateCalculator = () => { 
 
     const date : Date = new Date()
