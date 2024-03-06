@@ -55,3 +55,11 @@ export class Card {
     }
 
 }
+
+
+
+// -------------------- Robin's Notes --------------------
+//interface person { ...., sayHi?: () => void}
+// const persons: Person[] = [ ... { ... , sayHi: () => console.log('Hi')}]
+//person[0].sayHi?.();
+// means if this methos is there, fire it.

@@ -11,4 +11,5 @@ export interface Task {
     startTask: (time: number[]) => void
     setTitle: (newData : string) => void
     setDescription: (newData : string) => void
+    setStatus: (newTask : 'not-started' | 'in-progress' | 'completed' | 'blocked' | 'archived') => void
 }
