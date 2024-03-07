@@ -6,5 +6,5 @@ export const useDateCalculator = () => {
     const day : number = date.getDate() 
 
 
-    return ({date: date, year: year, month: month, day: day})
+    return ({year: year, month: month, day: day})
 }

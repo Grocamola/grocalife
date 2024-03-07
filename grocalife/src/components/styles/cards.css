@@ -6,6 +6,7 @@
     margin: 30px auto;
     line-height: 3rem;
     font-weight: 600;
+    color: var(--color__white);
 }
 
 .newTaskFormBox form div {
@@ -39,4 +40,21 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     color: transparent;
     background: none;
     z-index: 10;
-  }
+}
+
+
+.taskPreview { 
+    min-height: 80px;
+    height: fit-content;
+    background-color: var(--color__background-light);
+    width: 95%;
+    margin: 15px auto;
+    color: var(--color__black);
+    flex-direction: column;
+    text-align: left;
+    padding: 10px 3px;
+    border-radius: 5px;;
+}
+.taskPreview p { 
+    margin: 5px;
+}

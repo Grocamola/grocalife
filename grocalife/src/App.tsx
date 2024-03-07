@@ -9,7 +9,7 @@ import './App.css'
 
 function App() {
 
-  const taskZero = new TaskCard({id: 1001, creator: 'user', createdate: [2024,1,1], cardFeature: 'task', title: '', description: ''})
+  const taskZero = new TaskCard({id: 1001, creator: 'user', createdate: [2024,1,1],dueDate:[2024,1,1], cardFeature: 'task', title: '', description: ''})
   const [taskList, setTaskList] = useState<TaskCard>(taskZero)
   
   return (
