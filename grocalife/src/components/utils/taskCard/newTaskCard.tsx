@@ -4,6 +4,7 @@ import { TaskCard } from "../_Classes/taskClasses";
 import Navbar from "../../Elements/navbar";
 
 import "../../styles/cards.css";
+import { useDateCalculator } from "../_Hooks/date";
 
 
 type TaskFormData = {
@@ -14,13 +15,14 @@ type TaskFormData = {
 };
 
 type newTaskProps = {
-  addNewTask: (data: TaskCard) => void;
+  addNewTask(updateFunction: (prev: TaskCard[]) => TaskCard[]): void;
 };
 
 
 
 const NewTaskCard = (props: newTaskProps) => {
   const navigate = useNavigate();
+  const {year, month, day} = useDateCalculator()
 
   const [formData, setFormData] = useState<TaskFormData>({
     title: "",
@@ -49,6 +51,14 @@ const NewTaskCard = (props: newTaskProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if(formData.startDate.every((value, index) => value === [0, 0, 0][index])) { 
+      setFormData((prevData) => ({ ...prevData, ['startDate']: [year, month, day],}))
+    }
+    if(formData.dueDate.every((value, index) => value === [0, 0, 0][index])) { 
+      setFormData((prevData) => ({ ...prevData, ['dueDate']: [year, month, day],}))
+    }
+
     setPreviewMode(prev => !prev)
 
   };
@@ -62,9 +72,10 @@ const NewTaskCard = (props: newTaskProps) => {
       description: formData.description,
       dueDate: formData.dueDate
     });
-    props.addNewTask(task1);
+    
 
     const data = task1.getCardData();
+    props.addNewTask(prev => [...prev, task1]);
     console.log(data);
 
     navigate('/')

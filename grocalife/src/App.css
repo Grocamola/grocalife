@@ -76,6 +76,9 @@ textarea {
 
 @font-face {
   font-family: Montserrat;
-  font-size: 12px;
   src: url("./assets/fonts/Montserrat-Regular.ttf");
+}
+@font-face {
+  font-family: Montserrat-bold;
+  src: url("./assets/fonts/RedHatDisplay-Bold.ttf");
 }

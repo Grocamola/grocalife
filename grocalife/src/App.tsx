@@ -10,14 +10,14 @@ import './App.css'
 function App() {
 
   const taskZero = new TaskCard({id: 1001, creator: 'user', createdate: [2024,1,1],dueDate:[2024,1,1], cardFeature: 'task', title: '', description: ''})
-  const [taskList, setTaskList] = useState<TaskCard>(taskZero)
+  const [taskList, setTaskList] = useState<TaskCard[]>([taskZero])
   
   return (
     <>
       <BrowserRouter>
         <Routes>
         <Route path="/create-new-task" element={<NewTaskCard addNewTask={setTaskList} />} />
-          <Route path="/" element={<TaskSummaryPage task={taskList} />} />
+          <Route path="/" element={<TaskSummaryPage tasks={taskList} />} />
         </Routes>
       </BrowserRouter>
     </>

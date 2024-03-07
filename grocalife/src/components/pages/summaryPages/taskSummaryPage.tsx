@@ -1,14 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import { TaskCard } from "../../utils/_Classes/taskClasses";
+import Navbar from "../../Elements/navbar";
+import TaskThumbnail from "../../utils/taskCard/taskThumbnail";
+
 
 import '../../styles/summaryPages.css'
-import Navbar from "../../Elements/navbar";
+
 
 type summaryProps = {
-    task: TaskCard
+    tasks: TaskCard[]
 }
 
-const TaskSummaryPage = ({task} : summaryProps) => {
+const TaskSummaryPage = ({tasks} : summaryProps) => {
     const navigate = useNavigate()
 
     const GoToTaskPageHandler = () => { 
@@ -19,7 +22,7 @@ const TaskSummaryPage = ({task} : summaryProps) => {
             <Navbar />
             <p>Hello, this is my first page</p><br />
             <button onClick={GoToTaskPageHandler}>New Task</button>
-            <p>{task.title}</p>
+            {tasks.slice(1).map(el => <TaskThumbnail task={el} />)}
         </div>
     );
 }
