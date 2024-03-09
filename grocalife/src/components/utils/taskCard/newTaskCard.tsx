@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { TaskCard } from "../_Classes/taskClasses";
 
 import "../../styles/cards.css";
@@ -15,12 +15,13 @@ type TaskFormData = {
 
 type newTaskProps = {
   addNewTask(updateFunction: (prev: TaskCard[]) => TaskCard[]): void;
+  setDisplay(arg: boolean):void
 };
 
 
 
 const NewTaskCard = (props: newTaskProps) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const {year, month, day} = useDateCalculator()
 
   const [formData, setFormData] = useState<TaskFormData>({
@@ -29,22 +30,18 @@ const NewTaskCard = (props: newTaskProps) => {
     startDate: [0, 0, 0],
     dueDate: [0,0,0]
   });
+
   const [previewMode, setPreviewMode] = useState<boolean>(false)
+  const [error, setError] = useState(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     const [yearInput, monthInput, dayInput] = value.split("-").map(Number);
 
     if (name === "dueDate" || name === "startDate") {
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: [yearInput, monthInput, dayInput],
-      }));
+      setFormData((prevData) => ({ ...prevData, [name]: [yearInput, monthInput, dayInput] }));
     } else {
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
+      setFormData((prevData) => ({ ...prevData, [name]: value }));
     }
   };
 
@@ -58,8 +55,13 @@ const NewTaskCard = (props: newTaskProps) => {
       setFormData((prevData) => ({ ...prevData, ['dueDate']: [year, month, day],}))
     }
 
-    setPreviewMode(prev => !prev)
-
+    if(formData.title.length > 2) { 
+      setPreviewMode(prev => !prev)
+      setError(false)
+    } else {
+      setError(true)
+      throw new Error ('Something weird happened!')
+    }
   };
 
   const taskSaveHandler = () => {
@@ -71,13 +73,20 @@ const NewTaskCard = (props: newTaskProps) => {
       description: formData.description,
       dueDate: formData.dueDate
     });
-    
 
     const data = task1.getCardData();
-    props.addNewTask(prev => [...prev, task1]);
-    console.log(data);
 
-    navigate('/')
+    props.addNewTask(prev => [...prev, task1]);
+    setFormData({
+      title: "",
+      description: "",
+      startDate: [0, 0, 0],
+      dueDate: [0,0,0]
+    })
+    console.log(data);
+    setPreviewMode(false)
+    props.setDisplay(false)
+    // navigate('/')
   }
 
   const taskDataDeleteHandler = () => { 
@@ -90,34 +99,19 @@ const NewTaskCard = (props: newTaskProps) => {
     setPreviewMode(prev => !prev)
   }
 
+
   return (
     <>
       <div className="newTaskFormBox">
         <form onSubmit={handleSubmit}>
           <div>
-            <label className="taskFormLabel" htmlFor="title">
-              Title:
-            </label>
-            <input
-              type="text"
-              className="taskFormInput"
-              id="title"
-              name="title"
-              value={formData.title}
-              onChange={handleChange}
-            />
+            <label className="taskFormLabel" htmlFor="title">Title:</label>
+            <input type="text" className="taskFormInput" id="title" name="title" value={formData.title} onChange={handleChange} />
           </div>
+          <p style={{fontSize: '0.8rem', color: 'red', display: error ? 'block' : 'none'}}>Please fill the title</p>
           <div>
-            <label className="taskFormLabel" htmlFor="description">
-              Description:
-            </label>
-            <textarea
-              id="description"
-              name="description"
-              className="taskFormInput"
-              value={formData.description}
-              onChange={handleChange}
-            />
+            <label className="taskFormLabel" htmlFor="description">Description:</label>
+            <textarea id="description" name="description" className="taskFormInput" value={formData.description} onChange={handleChange} />
           </div>
           <div className="dateInput">
             <label className="taskFormLabel" htmlFor="startDate">Starting Date:</label>
@@ -141,12 +135,8 @@ const NewTaskCard = (props: newTaskProps) => {
             </div>
           </div>
 
-          <button className="button-light" type="submit" style={{display: !previewMode ? 'flex': 'none', margin: '20px auto'}}>
-            SUBMIT
-          </button>
-          <button className="button-light" type="button" style={{ display: previewMode ? 'flex' : 'none', margin: '20px auto' }} onClick={() => setPreviewMode(prev => !prev)}>
-            EDIT
-          </button>
+          <button className="button-light" type="submit" style={{display: !previewMode ? 'flex': 'none', margin: '20px auto'}}>SUBMIT</button>
+          <button className="button-light" type="button" style={{ display: previewMode ? 'flex' : 'none', margin: '20px auto' }} disabled={error && true} onClick={() => setPreviewMode(prev => !prev)}>EDIT</button>
         </form>
           {previewMode && <>
             <div className="taskPreview" style={{display: previewMode ? 'flex': 'none'}}>

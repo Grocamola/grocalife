@@ -1,8 +1,22 @@
-.TaskSummaryPage p { 
-    color: var(--color__black)
-}
 
 .taskSummaryContainer { 
     width: 85%;
     margin: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.newTaskBtn { 
+    color: var(--color__white);
+    background-color: var(--color__background-purple);
+    font-family: Montserrat-bold;
+    width: 130px;
+}
+.taskNonNegiciables, .taskUpcomings { 
+    width: 31%;
+    height: 100%;
+}
+.taskThumbnail { 
+    margin: 20px auto;
 }
