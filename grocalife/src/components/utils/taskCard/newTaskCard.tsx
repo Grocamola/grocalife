@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TaskCard } from "../_Classes/taskClasses";
-import Navbar from "../../Elements/navbar";
 
 import "../../styles/cards.css";
 import { useDateCalculator } from "../_Hooks/date";
@@ -93,7 +92,6 @@ const NewTaskCard = (props: newTaskProps) => {
 
   return (
     <>
-      <Navbar />
       <div className="newTaskFormBox">
         <form onSubmit={handleSubmit}>
           <div>

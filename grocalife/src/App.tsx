@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TaskSummaryPage from "./components/pages/summaryPages/taskSummaryPage";
-import NewTaskCard from "./components/utils/taskCard/newTaskCard";
 import { TaskCard } from "./components/utils/_Classes/taskClasses";
 
 import './App.css'
@@ -16,8 +15,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-        <Route path="/create-new-task" element={<NewTaskCard addNewTask={setTaskList} />} />
-          <Route path="/" element={<TaskSummaryPage tasks={taskList} />} />
+          <Route path="/" element={<TaskSummaryPage tasks={taskList} addNewTask={setTaskList} />} />
         </Routes>
       </BrowserRouter>
     </>
