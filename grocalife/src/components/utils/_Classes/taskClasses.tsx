@@ -6,7 +6,7 @@ export type CardType = {
     dueDate: [number, number, number];
     cardFeature?: 'task' | 'appointment';
 }
-enum TaskStatus {
+export enum TaskStatus {
     NotStarted = 'Not Started',
     InProgress = 'In Progress',
     Blocked = 'Blocked',

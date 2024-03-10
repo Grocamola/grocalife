@@ -68,7 +68,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     background-color: var(--color__background-purple);
     border-radius: 20px;
     padding: 15px 25px;
-    margin: 10px;
+    margin: 20px auto;
     box-sizing: border-box;
     text-align: left;
 }
@@ -82,4 +82,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 .taskThumbnailBtns button { 
     font-size: 11px;
+}
+.taskThumbnail:hover { 
+    background-color: var(--color__background-orange);
+    border: 1px solid var(--color__background-orange);
 }

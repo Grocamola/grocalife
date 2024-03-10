@@ -1,4 +1,4 @@
-import { TaskCard } from '../_Classes/taskClasses';
+import { TaskCard, TaskStatus } from '../_Classes/taskClasses';
 
 import '../../styles/cards.css'
 
@@ -8,12 +8,14 @@ type TaskThumbnailProps = {
 }
 
 const TaskThumbnail = ({task} : TaskThumbnailProps) => {
+    console.log(task.getCardData().status)
     return ( 
         <div className="taskThumbnail">
             <p className="taskThumbnail__title">{task.title}</p>
             <div className="taskThumbnailBtns">
-                <button>IN PROGRESS</button>
-                <button>DONE</button>
+                <button style={{display: task.getCardData().status !== TaskStatus.NotStarted ? "inline-block" : "none"}}>NOT STARTED</button>
+                <button style={{display: task.getCardData().status !== TaskStatus.InProgress ? "inline-block" : "none"}}>IN PROGRESS</button>
+                <button style={{display: task.getCardData().status !== TaskStatus.Completed ? "inline-block" : "none"}}>DONE</button>
             </div>
             
         </div>

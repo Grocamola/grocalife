@@ -1,7 +1,7 @@
 import { useState } from "react";
 // import { useNavigate } from "react-router-dom";
 
-import { TaskCard } from "../../utils/_Classes/taskClasses";
+import { TaskCard, TaskStatus } from "../../utils/_Classes/taskClasses";
 import Navbar from "../../Elements/navbar";
 import TaskThumbnail from "../../utils/taskCard/taskThumbnail";
 import NewTaskCard from "../../utils/taskCard/newTaskCard";
@@ -17,7 +17,7 @@ type summaryProps = {
 
 const TaskSummaryPage = ({tasks, addNewTask} : summaryProps) => {
     // const navigate = useNavigate()
-
+    console.log(tasks)
     const {year, month, day} = useDateCalculator()
 
     const [addTaskStatus, setAddTaskStatus] = useState(true)
@@ -40,21 +40,21 @@ const TaskSummaryPage = ({tasks, addNewTask} : summaryProps) => {
                    {tasks.slice(1).filter(task => {
                         const [yearTask, monthTask, dayTask] = task.dueDate;
                         return yearTask === year && monthTask === month && dayTask === day;
-                    }).map(el => <TaskThumbnail task={el} />)} 
+                    }).filter(el => el.getCardData().status !== TaskStatus.Completed).map(el => <TaskThumbnail task={el} />)} 
                 </div>
                 <div className="taskUpcomings">
                 <h2>Upcoming tasks</h2>
                    {tasks.slice(1).filter(task => {
                         const [yearTask, monthTask, dayTask] = task.dueDate;
                         return yearTask > year || yearTask === year && monthTask > month || yearTask === year && monthTask === month && dayTask > day;
-                    }).map(el => <TaskThumbnail task={el} />)} 
+                    }).filter(el => el.getCardData().status !== TaskStatus.Completed).map(el => <TaskThumbnail task={el} />)} 
                 </div>
-                <div className="taskUpcomings">
+                <div className="taskCompleteds">
                 <h2>Completed ones. YAY!</h2>
                    {tasks.slice(1).filter(task => {
                         const [yearTask, monthTask, dayTask] = task.dueDate;
-                        return yearTask > year || yearTask === year && monthTask > month || yearTask === year && monthTask === month && dayTask > day;
-                    }).map(el => <TaskThumbnail task={el} />)} 
+                        return yearTask === year && monthTask === month && dayTask === day;
+                    }).filter(el => el.getCardData().status === TaskStatus.Completed).map(el => <TaskThumbnail task={el} />)} 
                 </div>
                 </div>
             </div>
