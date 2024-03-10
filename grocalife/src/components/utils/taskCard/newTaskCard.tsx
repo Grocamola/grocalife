@@ -32,7 +32,7 @@ const NewTaskCard = (props: newTaskProps) => {
   });
 
   const [previewMode, setPreviewMode] = useState<boolean>(false)
-  const [error, setError] = useState(false)
+  const [error, setError] = useState<'none' | 'date' | 'title'>('none')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -55,12 +55,17 @@ const NewTaskCard = (props: newTaskProps) => {
       setFormData((prevData) => ({ ...prevData, ['dueDate']: [year, month, day],}))
     }
 
-    if(formData.title.length > 2) { 
-      setPreviewMode(prev => !prev)
-      setError(false)
+    if(formData.title.length < 2) { 
+      setError('title')
+      throw new Error ('Please fill out the title.')
+    } else if (formData.dueDate[0] !== 0 || formData.startDate[0] !== 0 && (formData.dueDate[0] <= formData.startDate[0] || 
+      formData.dueDate[0] === formData.startDate[0] && formData.dueDate[1] <= formData.startDate[1] ||
+      formData.dueDate[0] === formData.startDate[0] && formData.dueDate[1] === formData.startDate[1] && formData.dueDate[2] <= formData.startDate[2])) { 
+        setError('date')
+        throw new Error ('Please check dates.')
     } else {
-      setError(true)
-      throw new Error ('Something weird happened!')
+      setPreviewMode(prev => !prev)
+      setError('none')
     }
   };
 
@@ -108,7 +113,7 @@ const NewTaskCard = (props: newTaskProps) => {
             <label className="taskFormLabel" htmlFor="title">Title:</label>
             <input type="text" className="taskFormInput" id="title" name="title" value={formData.title} onChange={handleChange} />
           </div>
-          <p style={{fontSize: '0.8rem', color: 'red', display: error ? 'block' : 'none'}}>Please fill the title</p>
+          <p style={{fontSize: '0.8rem', color: 'red', display: error === 'title' ? 'block' : 'none'}}>Please fill the title</p>
           <div>
             <label className="taskFormLabel" htmlFor="description">Description:</label>
             <textarea id="description" name="description" className="taskFormInput" value={formData.description} onChange={handleChange} />
@@ -123,7 +128,7 @@ const NewTaskCard = (props: newTaskProps) => {
               <span className="open-button">📅</span>
             </div>
           </div>
-
+          <p style={{fontSize: '0.8rem', color: 'red', display: error === 'date' ? 'block' : 'none'}}>Please check starting date.</p>
           <div className="dateInput">
             <label className="taskFormLabel" htmlFor="dueDate">Due Date:</label>
             <div className="taskFormInput">
@@ -134,7 +139,7 @@ const NewTaskCard = (props: newTaskProps) => {
               <span className="open-button">📅</span>
             </div>
           </div>
-
+          <p style={{fontSize: '0.8rem', color: 'red', display: error === 'date' ? 'block' : 'none'}}>Please check your due date.</p>
           <button className="button-light" type="submit" style={{display: !previewMode ? 'flex': 'none', margin: '20px auto'}}>SUBMIT</button>
           <button className="button-light" type="button" style={{ display: previewMode ? 'flex' : 'none', margin: '20px auto' }} disabled={error && true} onClick={() => setPreviewMode(prev => !prev)}>EDIT</button>
         </form>
