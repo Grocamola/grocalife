@@ -2,6 +2,7 @@ import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TaskSummaryPage from "./components/pages/summaryPages/taskSummaryPage";
 import { TaskCard } from "./components/utils/_Classes/taskClasses";
+import Timeline from "./components/pages/timelinePage/timeline";
 
 import './App.css'
 
@@ -15,7 +16,8 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<TaskSummaryPage tasks={taskList} addNewTask={setTaskList} />} />
+          <Route path="/" element={<Timeline />} />
+          <Route path="/task-summary" element={<TaskSummaryPage tasks={taskList} setTaskList={setTaskList} />} />
         </Routes>
       </BrowserRouter>
     </>

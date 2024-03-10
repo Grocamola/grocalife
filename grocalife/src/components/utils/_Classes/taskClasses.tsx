@@ -1,18 +1,6 @@
+import { CardType, TaskStatus } from "../_interfaces/TaskInterfaces";
 
-export type CardType = {
-    id: number;
-    creator: string;
-    createdate: [number, number, number];
-    dueDate: [number, number, number];
-    cardFeature?: 'task' | 'appointment';
-}
-export enum TaskStatus {
-    NotStarted = 'Not Started',
-    InProgress = 'In Progress',
-    Blocked = 'Blocked',
-    Completed = 'Completed',
-    Archived = 'Archived'
-}
+
 
 
 export abstract class Card {
@@ -47,16 +35,16 @@ export class TaskCard extends Card {
     }
 
     getCardData() {
-        console.log({
-            id: this._id,
-            creator: this._creator,
-            createdate: this._createdate,
-            cardFeature: this.cardFeature,
-            status: this.status,
-            title: this.title,
-            description: this.description,
-            dueDate: this.dueDate
-        })
+        // console.log({
+        //     id: this._id,
+        //     creator: this._creator,
+        //     createdate: this._createdate,
+        //     cardFeature: this.cardFeature,
+        //     status: this.status,
+        //     title: this.title,
+        //     description: this.description,
+        //     dueDate: this.dueDate
+        // })
         return {
             id: this._id,
             creator: this._creator,

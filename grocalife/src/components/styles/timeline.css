@@ -1,0 +1,30 @@
+
+.timelineContainer { 
+    width: 100vw;
+    height: calc(100vh - 6rem);
+    display: flex;
+    flex-direction: row;
+}
+
+.timelineMenuLeft { 
+    width: 200px;
+    height: 100%;
+    display: fixed;
+    top: 6rem;
+    background-color: var(--color__white);
+    padding-top: 30px;
+    box-sizing: border-box;
+}
+.timelineMenuLeft ul { 
+    margin: 0;
+    padding: 0;
+}
+.timelineMenuLeft ul li { 
+    list-style-type: none;
+    cursor: pointer;
+}
+.daysInfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
