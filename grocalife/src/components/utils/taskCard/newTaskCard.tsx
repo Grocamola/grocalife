@@ -14,7 +14,7 @@ type TaskFormData = {
 };
 
 type newTaskProps = {
-  addNewTask(updateFunction: (prev: TaskCard[]) => TaskCard[]): void;
+  setTaskList(updateFunction: (prev: TaskCard[]) => TaskCard[]): void;
   setDisplay(arg: boolean):void
 };
 
@@ -81,7 +81,7 @@ const NewTaskCard = (props: newTaskProps) => {
 
     const data = task1.getCardData();
 
-    props.addNewTask(prev => [...prev, task1]);
+    props.setTaskList(prev => [...prev, task1]);
     setFormData({
       title: "",
       description: "",

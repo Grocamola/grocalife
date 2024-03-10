@@ -1,26 +1,27 @@
 import { useState } from "react";
 // import { useNavigate } from "react-router-dom";
 
-import { TaskCard, TaskStatus } from "../../utils/_Classes/taskClasses";
+import { TaskCard } from "../../utils/_Classes/taskClasses";
 import Navbar from "../../Elements/navbar";
 import TaskThumbnail from "../../utils/taskCard/taskThumbnail";
 import NewTaskCard from "../../utils/taskCard/newTaskCard";
 
 import '../../styles/summaryPages.css'
 import { useDateCalculator } from "../../utils/_Hooks/date";
+import { TaskStatus } from "../../utils/_interfaces/TaskInterfaces";
 
 
 type summaryProps = {
     tasks: TaskCard[];
-    addNewTask(updateFunction: (prev: TaskCard[]) => TaskCard[]): void;
+    setTaskList(updateFunction: (prev: TaskCard[]) => TaskCard[]): void;
 }
 
-const TaskSummaryPage = ({tasks, addNewTask} : summaryProps) => {
+const TaskSummaryPage = ({tasks, setTaskList} : summaryProps) => {
     // const navigate = useNavigate()
-    console.log(tasks)
+
     const {year, month, day} = useDateCalculator()
 
-    const [addTaskStatus, setAddTaskStatus] = useState(true)
+    const [addTaskStatus, setAddTaskStatus] = useState(false)
 
     const GoToTaskPageHandler = () => { 
         // navigate("/create-new-task");
@@ -30,7 +31,7 @@ const TaskSummaryPage = ({tasks, addNewTask} : summaryProps) => {
         <div className="TaskSummaryPage">
             <Navbar />
             <button className="newTaskBtn" onClick={GoToTaskPageHandler}>New Task</button>
-            <div style={{display: addTaskStatus ? 'block' : 'none'}}><NewTaskCard addNewTask={addNewTask} setDisplay={setAddTaskStatus}/></div>
+            <div style={{display: addTaskStatus ? 'block' : 'none'}}><NewTaskCard setTaskList={setTaskList} setDisplay={setAddTaskStatus}/></div>
             <div style={{height: 60}} />
             {/* <p>Hello, this is my first page</p><br /> */}
             <div className="taskColumns">
@@ -54,7 +55,7 @@ const TaskSummaryPage = ({tasks, addNewTask} : summaryProps) => {
                    {tasks.slice(1).filter(task => {
                         const [yearTask, monthTask, dayTask] = task.dueDate;
                         return yearTask === year && monthTask === month && dayTask === day;
-                    }).filter(el => el.getCardData().status === TaskStatus.Completed).map(el => <TaskThumbnail task={el} />)} 
+                    }).filter(el => el.getCardData().status === TaskStatus.Completed).map(el => <TaskThumbnail task={el} key={el.title} />)} 
                 </div>
                 </div>
             </div>
